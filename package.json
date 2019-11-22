@@ -5,7 +5,10 @@
    "main": "server.js",
    "scripts": {
       "start": "echo \"Launching...\" && node server.js",
-      "server": "echo \"Starting dev server\" && nodemon server.js"
+      "server": "echo \"Starting dev server\" && nodemon server.js",
+      "client": "npm start --prefix client",
+      "cliinstall": "npm --prefix client install",
+      "dev": "concurrently \"npm run server\" \"npm run client\""
    },
    "author": "",
    "license": "ISC",
