@@ -14,3 +14,8 @@ npm i -D
 
 npx create-react-app client
 
+npm run cliinstall 
+   - axios 
+   - react-router-dom 
+   - uuid 
+   - react-transition-group
