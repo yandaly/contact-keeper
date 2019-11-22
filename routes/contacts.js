@@ -7,7 +7,7 @@ const User = require('../models/User');
 // @desc    Get all user contacts
 // @access  Private
 router.get('/', (req, res) => {
-	res.send('Get all contacts');
+	res.send('GET ALL');
 });
 
 // @route   POST api/contact
