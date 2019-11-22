@@ -11,3 +11,6 @@ npm i
 npm i -D
    - nodemon
    - concurrently
+
+npx create-react-app client
+
