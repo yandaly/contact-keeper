@@ -1,5 +1,7 @@
 node_modules/
 
+/client/context
+
 /client/build
 
 .DS_Store
