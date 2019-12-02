@@ -53,12 +53,14 @@ const ContactState = (props) => {
 	// Clear filter
 
 	return (
-		<ContactContext.provider
+		<contactContext.Provider
 			value={{
 				contacts : state.contacts
 			}}
 		>
 			{props.children}
-		</ContactContext.provider>
+		</contactContext.Provider>
 	);
 };
+
+export default ContactState;
