@@ -42,6 +42,10 @@ const Register = (props) => {
     }
   };
 
+  const handleRedirect = () => {
+    props.history.push('/login');
+  };
+
   return (
     <div className='form-container'>
       <h1>
@@ -96,6 +100,9 @@ const Register = (props) => {
         </div>
         <input type='submit' value='Register' className='btn btn-block btn-primary' />
       </form>
+      <button className='btn btn-dark btn-sm' onClick={handleRedirect}>
+        Already have an account? Login!
+      </button>
     </div>
   );
 };
