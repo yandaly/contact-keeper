@@ -1,19 +1,26 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ContactContext from '../../context/contact/contactContext';
 import ContactItem from './ContactItem';
 
-const Contacts = () => {
+export default () => {
   const contactContext = useContext(ContactContext);
+  const [list, setList] = useState([]);
+  const { contacts, filtered } = contactContext;
 
-  const { contacts } = contactContext;
+  useEffect(() => {
+    setList(filtered ? filtered : contacts);
+  }, [filtered, contacts]);
 
   return (
     <Fragment>
-      {contacts.map((contact) => (
-        <ContactItem key={contact.id} contact={contact} />
-      ))}
+      <TransitionGroup>
+        {list.map((contact) => (
+          <CSSTransition key={contact.id} timeout={500} classNames='item'>
+            <ContactItem contact={contact} />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </Fragment>
   );
 };
-
-export default Contacts;
