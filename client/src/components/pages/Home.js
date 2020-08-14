@@ -6,14 +6,13 @@ import ContactContext from '../../context/contact/contactContext';
 import AuthContext from '../../context/auth/authContext';
 
 const Home = () => {
-  const contactContext = useContext(ContactContext);
   const authContext = useContext(AuthContext);
-  const { contacts } = contactContext;
   const { loadUser } = authContext;
-
   useEffect(() => {
     loadUser();
   }, []);
+  const contactContext = useContext(ContactContext);
+  const { contacts } = contactContext;
 
   return (
     <div className='grid-2'>
