@@ -49,6 +49,7 @@ const ContactForm = () => {
         name='name'
         value={name}
         onChange={handleChange}
+        required
       />
       <input
         type='email'
@@ -56,6 +57,7 @@ const ContactForm = () => {
         name='email'
         value={email}
         onChange={handleChange}
+        required
       />
       <input
         type='text'
@@ -63,6 +65,7 @@ const ContactForm = () => {
         name='phone'
         value={phone}
         onChange={handleChange}
+        required
       />
       <h5>Contact type</h5>
       <input
@@ -71,6 +74,7 @@ const ContactForm = () => {
         value='personal'
         checked={type === 'personal'}
         onChange={handleChange}
+        required
       />{' '}
       Personal{' '}
       <input

@@ -20,7 +20,7 @@ const Home = () => {
         <ContactForm />
       </div>
       <div>
-        {contacts.length > 0 && <ContactFilter />}
+        {contacts && contacts.length > 0 && <ContactFilter />}
         <Contacts />
       </div>
     </div>

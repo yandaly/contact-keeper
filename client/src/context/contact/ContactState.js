@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import uuid from 'uuid';
+import axios from 'axios';
 import contactContext from './contactContext';
 import contactReducer from './contactReducer';
 import {
@@ -10,48 +11,62 @@ import {
   UPDATE_CONTACT,
   FILTER_CONTACTS,
   CLEAR_FILTER,
+  CONTACT_ERROR,
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
 } from '../types';
 
 const ContactState = (props) => {
   const initialState = {
-    contacts: [
-      {
-        id: 1,
-        name: 'Emma Watson',
-        email: 'emma@watson.com',
-        phone: '0060060064',
-        type: 'personal',
-      },
-      {
-        id: 2,
-        name: 'John Wick',
-        email: 'john@wick.com',
-        phone: '0070070076',
-        type: 'professional',
-      },
-      {
-        id: 3,
-        name: 'Olivier de Carglass',
-        email: 'olivier@carglass.com',
-        phone: '0077770076',
-        type: 'personal',
-      },
-    ],
+    contacts: null,
+    error: null,
     current: null,
     filtered: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(contactReducer, initialState);
 
+  const getContacts = async () => {
+    try {
+      const res = await axios.get(`/api/contacts`);
+      dispatch({ type: GET_CONTACTS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.data });
+    }
+  };
+
   // Add contact
-  const addContact = (contact) => {
-    contact.id = uuid.v4();
-    dispatch({ type: ADD_CONTACT, payload: contact });
+  const addContact = async (contact) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.post(`/api/contacts`, contact, config);
+      dispatch({ type: ADD_CONTACT, payload: res.data });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.data });
+    }
   };
 
   // Delete contact
-  const deleteContact = (id) => {
-    dispatch({ type: DELETE_CONTACT, payload: id });
+  const deleteContact = async (id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.delete(`/api/contact`, id, config);
+      dispatch({ type: DELETE_CONTACT, payload: res.data });
+    } catch (err) {
+      console.log('err.data :>> ', err.data);
+      dispatch({ type: CONTACT_ERROR, payload: err.data.msg });
+    }
   };
 
   // Set current contact
@@ -79,12 +94,18 @@ const ContactState = (props) => {
     dispatch({ type: CLEAR_FILTER });
   };
 
+  const clearContacts = () => {
+    dispatch({ type: CLEAR_CONTACTS });
+  };
+
   return (
     <contactContext.Provider
       value={{
         contacts: state.contacts,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
+        loading: state.loading,
         addContact,
         deleteContact,
         setCurrentContact,
@@ -92,6 +113,8 @@ const ContactState = (props) => {
         updateContact,
         filterContacts,
         clearFilter,
+        getContacts,
+        clearContacts,
       }}
     >
       {props.children}

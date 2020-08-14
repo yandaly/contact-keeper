@@ -19,7 +19,7 @@ const Login = (props) => {
       setAlert('Login successful', 'primary');
       props.history.push('/');
     }
-    console.log('error :>> ', error);
+    // console.log('error :>> ', error);
     if (error) {
       setAlert(`Error: ${error}`, 'danger');
       clearErrors();

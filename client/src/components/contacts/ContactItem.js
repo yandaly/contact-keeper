@@ -6,7 +6,7 @@ const ContactItem = ({ contact }) => {
   const contactContext = useContext(ContactContext);
   const { deleteContact, setCurrentContact, clearCurrentContact } = contactContext;
 
-  const { name, id, email, phone, type } = contact;
+  const { name, _id, email, phone, type } = contact;
 
   const handleEdit = () => {
     setCurrentContact(contact);
@@ -14,7 +14,7 @@ const ContactItem = ({ contact }) => {
 
   const handleDelete = () => {
     clearCurrentContact();
-    deleteContact(id);
+    deleteContact(_id);
   };
 
   return (
