@@ -9,3 +9,5 @@ node_modules/
 /clent/.env.production.local
 
 npm-debug.log*
+
+config/production.json

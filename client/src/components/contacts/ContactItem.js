@@ -12,9 +12,9 @@ const ContactItem = ({ contact }) => {
     setCurrentContact(contact);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     clearCurrentContact();
-    deleteContact(_id);
+    await deleteContact(_id);
   };
 
   return (
